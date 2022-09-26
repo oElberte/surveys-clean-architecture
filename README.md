@@ -9,3 +9,9 @@ The app is made on Flutter version 1.20.4 using FVM for version management, when
  - Clean Architecture
  - Design Patterns
  - SOLID
+ - DRY
+ - KISS
+ - YAGNI
+ - SoC
+ - DDD
+ - BDD
