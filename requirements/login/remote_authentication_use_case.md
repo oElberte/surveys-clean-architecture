@@ -1,8 +1,8 @@
 # Remote Authentication Use Case
 
 > ## Sucess case
-1. System validates the data
-2. System makes a request for the login API URL
+1. ✅ System validates the data
+2. ✅ System makes a request for the login API URL
 3. System validates data receveid from API
 4. System delivers user account data
 
