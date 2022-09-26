@@ -13,7 +13,7 @@
 1. ✅ System returns an unexpected error message
 
 > ## Exception - Invalid answer
-1. System returns an unexpected error message
+1. ✅ System returns an unexpected error message
 
 > ## Exception - Server fail
 1. ✅ System returns an unexpected error message
