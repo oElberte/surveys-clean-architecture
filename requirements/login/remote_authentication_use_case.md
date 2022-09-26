@@ -10,7 +10,7 @@
 1. System returns an unexpected error message
 
 > ## Exception - Invalid data
-1. System returns an unexpected error message
+1. ✅ System returns an unexpected error message
 
 > ## Exception - Invalid answer
 1. System returns an unexpected error message
