@@ -5,7 +5,7 @@
 2. ✅ Pass in the headers the content with type JSON
 3. ✅ Call request with correct body
 4. ✅ Ok - 200 and answer with data
-5. No content - 204 and no data answer
+5. ✅ No content - 204 and no data answer
 
 > ## Errors
 1. Bad request - 400
