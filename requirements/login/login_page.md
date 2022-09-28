@@ -12,7 +12,7 @@
 9. ✅ Remove error message if a valid password
 10. ✅ Habilitate the login button if all fields are valid
 11. ✅ Disable the login button if one field is invalid
-12. Show loading at the start of the login action
+12. ✅ Show loading at the start of the login action
 13. ✅ Call authentication method
 14. Show error message if login fails
 15. Hide loading at the end of the login action
