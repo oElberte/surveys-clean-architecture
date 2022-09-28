@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
               showErrorMessage(context, error);
             }
           });
-
+          
           return SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -59,14 +59,7 @@ class _LoginPageState extends State<LoginPage> {
                             padding: EdgeInsets.only(top: 8, bottom: 32),
                             child: PasswordInput(),
                           ),
-                          StreamBuilder<bool>(
-                              stream: widget.presenter.isFormValidStream,
-                              builder: (context, snapshot) {
-                                return RaisedButton(
-                                  onPressed: snapshot.data == true ? widget.presenter.auth : null,
-                                  child: Text('Sign-in'.toUpperCase()),
-                                );
-                              }),
+                          LoginButton(),
                           FlatButton.icon(
                             onPressed: () {},
                             icon: Icon(Icons.person),
