@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -9,15 +11,23 @@ class LoginPresenterSpy extends Mock implements LoginPresenter {}
 
 void main() {
   LoginPresenter presenter;
+  StreamController<String> emailErrorController;
 
   Future<void> loadPage(WidgetTester tester) async {
     presenter = LoginPresenterSpy();
+    emailErrorController = StreamController<String>();
+    //Everytime emailErrorStream has a new value the stream is updated with the value.
+    when(presenter.emailErrorStream)
+        .thenAnswer((_) => emailErrorController.stream);
     final loginPage = MaterialApp(home: LoginPage(presenter));
     await tester.pumpWidget(loginPage);
   }
 
-  testWidgets('Should load with correct initial state',
-      (WidgetTester tester) async {
+  tearDown(() {
+    emailErrorController.close();
+  });
+
+  testWidgets('Should load with correct initial state', (tester) async {
     await loadPage(tester);
 
     final emailTextChildren = find.descendant(
@@ -42,8 +52,7 @@ void main() {
     expect(button.onPressed, null);
   });
 
-  testWidgets('Should call validate with correct values',
-      (WidgetTester tester) async {
+  testWidgets('Should call validate with correct values', (tester) async {
     await loadPage(tester);
 
     final email = faker.internet.email();
@@ -53,5 +62,14 @@ void main() {
     final password = faker.internet.password();
     await tester.enterText(find.bySemanticsLabel('Password'), password);
     verify(presenter.validatePassword(password));
+  });
+
+  testWidgets('Should present error if email is invalid', (tester) async {
+    await loadPage(tester);
+
+    emailErrorController.add('any error');
+    await tester.pump();
+
+    expect(find.text('any error'), findsOneWidget);
   });
 }
