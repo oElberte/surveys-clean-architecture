@@ -16,4 +16,4 @@
 13. ✅ Call authentication method
 14. ✅ Show error message if login fails
 15. ✅ Hide loading at the end of the login action
-16. close streams when the page closed
+16. ✅ Close streams when the page closed
