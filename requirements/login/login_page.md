@@ -11,10 +11,9 @@
 8. ✅ Show an error message if an invalid password
 9. ✅ Remove error message if a valid password
 10. ✅ Habilitate the login button if all fields are valid
-11. Disable the login button if one field is invalid
+11. ✅ Disable the login button if one field is invalid
 12. Show loading at the start of the login action
-13. Authenticate user with email and password on the form
+13. Call authentication method
 14. Show error message if login fails
-15. Save the user token in the cache to keep him connected
-16. Redirect the user to the poll list screen
-17. Hide loading at the end of the login action
+15. Hide loading at the end of the login action
+16. close streams when the page closed
