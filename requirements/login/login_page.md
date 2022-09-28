@@ -10,7 +10,7 @@
 7. ✅ Validate password when user types in the field
 8. ✅ Show an error message if an invalid password
 9. ✅ Remove error message if a valid password
-10. Habilitate the login button if all fields are valid
+10. ✅ Habilitate the login button if all fields are valid
 11. Disable the login button if one field is invalid
 12. Show loading at the start of the login action
 13. Authenticate user with email and password on the form

@@ -28,11 +28,8 @@ class LoginPage extends StatelessWidget {
                         return TextFormField(
                           decoration: InputDecoration(
                             labelText: 'Email',
+                            icon: Icon(Icons.email, color: Theme.of(context).primaryColorLight),
                             errorText: snapshot.data?.isEmpty == true ? null : snapshot.data,
-                            icon: Icon(
-                              Icons.email,
-                              color: Theme.of(context).primaryColorLight,
-                            ),
                           ),
                           keyboardType: TextInputType.emailAddress,
                           onChanged: presenter.validateEmail,
@@ -47,23 +44,22 @@ class LoginPage extends StatelessWidget {
                             return TextFormField(
                               decoration: InputDecoration(
                                 labelText: 'Password',
+                                icon: Icon(Icons.lock, color: Theme.of(context).primaryColorLight),
                                 errorText: snapshot.data?.isEmpty == true ? null : snapshot.data,
-                                icon: Icon(
-                                  Icons.lock,
-                                  color: Theme.of(context).primaryColorLight,
-                                ),
                               ),
                               obscureText: true,
                               onChanged: presenter.validatePassword,
                             );
                           }),
                     ),
-                    RaisedButton(
-                      onPressed: null,
-                      child: Text(
-                        'Sign-in'.toUpperCase(),
-                      ),
-                    ),
+                    StreamBuilder<bool>(
+                        stream: presenter.isFormValidStream,
+                        builder: (context, snapshot) {
+                          return RaisedButton(
+                            onPressed: snapshot.data == true ? () {} : null,
+                            child: Text('Sign-in'.toUpperCase()),
+                          );
+                        }),
                     FlatButton.icon(
                       onPressed: () {},
                       icon: Icon(Icons.person),
