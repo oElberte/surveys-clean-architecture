@@ -8,7 +8,7 @@
 5. ✅ Show error message if invalid email
 6. ✅ Remove error message if valid email
 7. ✅ Validate password when user type in field
-8. Show error message if invalid password
+8. ✅ Show error message if invalid password
 9. Remove error message if valid password
 10. Habilate login button if all fields are valid
 11. Disable login button if one field is invalid

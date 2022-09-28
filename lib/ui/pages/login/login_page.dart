@@ -28,7 +28,9 @@ class LoginPage extends StatelessWidget {
                         return TextFormField(
                           decoration: InputDecoration(
                             labelText: 'Email',
-                            errorText: snapshot.data?.isEmpty == true ? null : snapshot.data,
+                            errorText: snapshot.data?.isEmpty == true
+                                ? null
+                                : snapshot.data,
                             icon: Icon(
                               Icons.email,
                               color: Theme.of(context).primaryColorLight,
@@ -41,17 +43,22 @@ class LoginPage extends StatelessWidget {
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 8, bottom: 32),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          labelText: 'Password',
-                          icon: Icon(
-                            Icons.lock,
-                            color: Theme.of(context).primaryColorLight,
-                          ),
-                        ),
-                        obscureText: true,
-                        onChanged: presenter.validatePassword,
-                      ),
+                      child: StreamBuilder<String>(
+                          stream: presenter.passwordErrorStream,
+                          builder: (context, snapshot) {
+                            return TextFormField(
+                              decoration: InputDecoration(
+                                labelText: 'Password',
+                                errorText: snapshot.data,
+                                icon: Icon(
+                                  Icons.lock,
+                                  color: Theme.of(context).primaryColorLight,
+                                ),
+                              ),
+                              obscureText: true,
+                              onChanged: presenter.validatePassword,
+                            );
+                          }),
                     ),
                     RaisedButton(
                       onPressed: null,
