@@ -25,7 +25,7 @@ class LoginPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CircularProgressIndicator(),
-                        SizedBox(height: 10),
+                        SizedBox(),
                         Text('Loading, please wait...', textAlign: TextAlign.center),
                       ],
                     ),
@@ -36,6 +36,17 @@ class LoginPage extends StatelessWidget {
               if (Navigator.canPop(context)) {
                 Navigator.of(context).pop();
               }
+            }
+          });
+
+          presenter.mainErrorStream.listen((error) {
+            if (error != null) {
+              Scaffold.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: Theme.of(context).errorColor,
+                  content: Text(error, textAlign: TextAlign.center),
+                ),
+              );
             }
           });
 
