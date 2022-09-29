@@ -2,7 +2,7 @@
 
 > ## Regras
 1. ✅ Validate email with Validation
-2. Notify the emailErrorStream with the Validation result
+2. ✅ Notify the emailErrorStream with the Validation result
 3. Notify the isFormValidStream after validating the email
 4. Validate password with Validation
 5. Notify the passwordErrorStream with the Validation result
