@@ -6,6 +6,6 @@ class RequiredFieldValidation implements FieldValidation {
   RequiredFieldValidation(this.field);
 
   String validate(String value) {
-    return value?.isNotEmpty == true ? null : 'Required field.';
+    return value?.isNotEmpty == true ? null : 'Required field';
   }
 }
