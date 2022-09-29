@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
               showErrorMessage(context, error);
             }
           });
-          
+
           return SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
