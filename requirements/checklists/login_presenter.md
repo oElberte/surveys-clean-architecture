@@ -14,4 +14,4 @@
 11. ✅ Notify the mainErrorStream in case Authentication returns a DomainError
 12. ⛔️ Keep Account in cache in case of success
 13. ⛔️ Redirect user to polls page in case of success
-14. Close all streams in dispose
+14. ✅ Close all streams in dispose
