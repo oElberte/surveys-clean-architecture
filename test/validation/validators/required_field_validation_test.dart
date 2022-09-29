@@ -11,7 +11,7 @@ class RequiredFieldValidation implements FieldValidation {
   RequiredFieldValidation(this.field);
 
   String validate(String value) {
-    return value.isEmpty ? 'Required field.' : null;
+    return value?.isNotEmpty == true ? null : 'Required field.';
   }
 }
 
@@ -28,5 +28,9 @@ void main() {
 
   test('Should return error if value is empty', () {
     expect(sut.validate(''), 'Required field.');
+  });
+
+  test('Should return error if value is null', () {
+    expect(sut.validate(null), 'Required field.');
   });
 }
