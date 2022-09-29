@@ -37,6 +37,7 @@ void main() {
 
     //Uses the value inside ".listen" and calls "expectAsyn1" with this value directly
     sut.emailErrorStream.listen(expectAsync1((error) => expect(error, 'error')));
+    sut.isFormValidStream.listen(expectAsync1((isValid) => expect(isValid, false)));
 
     sut.validateEmail(email);
     sut.validateEmail(email);
