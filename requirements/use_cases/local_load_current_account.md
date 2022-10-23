@@ -5,4 +5,4 @@
 2. ✅ System returns account data
 
 > ## Exception - Failure loading cache data
-1. System returns unexpected error message
+1. ✅ System returns unexpected error message
