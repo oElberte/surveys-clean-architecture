@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+import 'package:polls/domain/helpers/helpers.dart';
 
 import '../../../domain/usecases/usecases.dart';
 import '../../http/http.dart';
@@ -14,11 +15,15 @@ class RemoteCreateAccount {
 
   Future<void> create(CreateAccountParams params) async {
     final body = RemoteCreateAccountParams.fromDomain(params).toJson();
-    await httpClient.request(
-      url: url,
-      method: 'post',
-      body: body,
-    );
+    try {
+      await httpClient.request(
+        url: url,
+        method: 'post',
+        body: body,
+      );
+    } on HttpError {
+      throw DomainError.unexpected;
+    }
   }
 }
 
