@@ -1,10 +1,12 @@
 import 'package:meta/meta.dart';
-import 'package:polls/domain/helpers/helpers.dart';
 
+import '../../../domain/entities/entities.dart';
+import '../../../domain/helpers/helpers.dart';
 import '../../../domain/usecases/usecases.dart';
 import '../../http/http.dart';
+import '../../models/models.dart';
 
-class RemoteCreateAccount {
+class RemoteCreateAccount implements CreateAccount {
   final HttpClient httpClient;
   final String url;
 
@@ -13,14 +15,15 @@ class RemoteCreateAccount {
     @required this.url,
   });
 
-  Future<void> create(CreateAccountParams params) async {
+  Future<AccountEntity> create(CreateAccountParams params) async {
     final body = RemoteCreateAccountParams.fromDomain(params).toJson();
     try {
-      await httpClient.request(
+      final httpResponse = await httpClient.request(
         url: url,
         method: 'post',
         body: body,
       );
+      return RemoteAccountModel.fromJson(httpResponse).toEntity();
     } on HttpError catch (error) {
       throw error == HttpError.forbbiden
           ? DomainError.emailInUse
