@@ -78,6 +78,5 @@ class StreamLoginPresenter implements LoginPresenter {
   }
 
   @override
-  // TODO: implement navigateToStream
   Stream<String> get navigateToStream => throw UnimplementedError();
 }
