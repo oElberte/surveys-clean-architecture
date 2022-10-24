@@ -19,4 +19,4 @@
 1. ✅ System returns unexpected error message
 
 > ## Exception - Email in use
-1. System returns a message saying that the email is already in use
+1. ✅ System returns a message saying that the email is already in use
