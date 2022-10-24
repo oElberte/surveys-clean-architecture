@@ -12,14 +12,15 @@ class GetxSplashPresenter implements SplashPresenter {
 
   var _navigateTo = RxString();
 
-  GetxSplashPresenter({@required this.loadCurrentAccount});
-
   @override
   Stream<String> get navigateToStream => _navigateTo.stream;
+
+  GetxSplashPresenter({@required this.loadCurrentAccount});
 
   @override
   Future<void> checkAccount() async {
     await loadCurrentAccount.load();
+    _navigateTo.value = '/surveys';
   }
 }
 
@@ -38,5 +39,13 @@ void main() {
     await sut.checkAccount();
 
     verify(loadCurrentAccount.load()).called(1);
+  });
+
+  test('Should go to surveys page on success', () async {
+    sut.navigateToStream.listen(
+      expectAsync1((page) => expect(page, '/surveys')),
+    );
+
+    await sut.checkAccount();
   });
 }
