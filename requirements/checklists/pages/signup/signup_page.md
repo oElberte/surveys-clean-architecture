@@ -11,8 +11,8 @@
 8. Show error message if invalid password
 9. Remove error message if valid password
 10. ✅ Validate name when user type in the field
-11. Show error message if invalid name
-12. Remove error message if valid name
+11. ✅ Show error message if invalid name
+12. ✅ Remove error message if valid name
 13. ✅ Validate password confirmation when user type in the field
 14. Show error message if invalid name
 15. Remove error message if valid name
