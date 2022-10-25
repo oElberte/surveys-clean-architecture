@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:polls/ui/helpers/errors/errors.dart';
+import 'package:polls/ui/helpers/helpers.dart';
 import 'package:provider/provider.dart';
 
 import '../signup_presenter.dart';
@@ -14,7 +15,7 @@ class PasswordConfirmationInput extends StatelessWidget {
       builder: (context, snapshot) {
         return TextFormField(
           decoration: InputDecoration(
-            labelText: 'Confirm password',
+            labelText: R.string.confirmPassword,
             icon: Icon(
               Icons.lock,
               color: Theme.of(context).primaryColorLight,

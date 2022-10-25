@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:polls/ui/helpers/errors/errors.dart';
+import 'package:polls/ui/helpers/helpers.dart';
 import 'package:provider/provider.dart';
 
 import '../signup_presenter.dart';
@@ -14,7 +15,7 @@ class NameInput extends StatelessWidget {
       builder: (context, snapshot) {
         return TextFormField(
           decoration: InputDecoration(
-            labelText: 'Name',
+            labelText: R.string.name,
             icon: Icon(
               Icons.person,
               color: Theme.of(context).primaryColorLight,

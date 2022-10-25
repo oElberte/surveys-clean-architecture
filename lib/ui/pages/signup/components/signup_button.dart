@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:polls/utils/i18n/i18n.dart';
+
+import '../../../helpers/helpers.dart';
 
 class SignUpButton extends StatelessWidget {
   @override
