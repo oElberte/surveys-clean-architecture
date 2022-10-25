@@ -3,10 +3,10 @@
 > ## Rules
 1. ✅ The fields must start without error message
 2. ✅ The create button must start disabled
-3. The error message must disappear only if the field is valid
+3. ✅ The error message must disappear only if the field is valid
 4. ✅ Validate email when user type in the field
-5. Show error message if invalid email
-6. Remove error message if valid email
+5. ✅ Show error message if invalid email
+6. ✅ Remove error message if valid email
 7. ✅ Validate password when user type in the field
 8. Show error message if invalid password
 9. Remove error message if valid password
