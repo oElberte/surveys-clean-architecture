@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:polls/utils/i18n/i18n.dart';
 import 'package:provider/provider.dart';
 
 import '../../components/components.dart';
@@ -29,7 +30,7 @@ class SignUpPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   LoginHeader(),
-                  Headline1(text: 'Create account'),
+                  Headline1(text: R.string.createAccount),
                   Padding(
                     padding: EdgeInsets.all(32),
                     child: Provider(
@@ -51,7 +52,7 @@ class SignUpPage extends StatelessWidget {
                             FlatButton.icon(
                               onPressed: () {},
                               icon: Icon(Icons.exit_to_app),
-                              label: Text('Login'),
+                              label: Text(R.string.login),
                             ),
                           ],
                         ),

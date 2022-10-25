@@ -1,8 +1,10 @@
+import 'package:polls/ui/helpers/errors/errors.dart';
+
 abstract class SignUpPresenter {
-  Stream<String> get nameErrorStream;
-  Stream<String> get emailErrorStream;
-  Stream<String> get passwordErrorStream;
-  Stream<String> get passwordConfirmationErrorStream;
+  Stream<UIError> get nameErrorStream;
+  Stream<UIError> get emailErrorStream;
+  Stream<UIError> get passwordErrorStream;
+  Stream<UIError> get passwordConfirmationErrorStream;
 
   void validateName(String name);
   void validateEmail(String email);

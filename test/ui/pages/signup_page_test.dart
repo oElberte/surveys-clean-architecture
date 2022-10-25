@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:mockito/mockito.dart';
+import 'package:polls/ui/helpers/errors/errors.dart';
 
 import 'package:polls/ui/pages/pages.dart';
 
@@ -12,16 +13,16 @@ class SignUpPresenterSpy extends Mock implements SignUpPresenter {}
 
 void main() {
   SignUpPresenter presenter;
-  StreamController<String> nameErrorController;
-  StreamController<String> emailErrorController;
-  StreamController<String> passwordErrorController;
-  StreamController<String> passwordConfirmationErrorController;
+  StreamController<UIError> nameErrorController;
+  StreamController<UIError> emailErrorController;
+  StreamController<UIError> passwordErrorController;
+  StreamController<UIError> passwordConfirmationErrorController;
 
   void initStreams() {
-    nameErrorController = StreamController<String>();
-    emailErrorController = StreamController<String>();
-    passwordErrorController = StreamController<String>();
-    passwordConfirmationErrorController = StreamController<String>();
+    nameErrorController = StreamController<UIError>();
+    emailErrorController = StreamController<UIError>();
+    passwordErrorController = StreamController<UIError>();
+    passwordConfirmationErrorController = StreamController<UIError>();
   }
 
   void mockStreams() {
@@ -46,6 +47,7 @@ void main() {
     presenter = SignUpPresenterSpy();
     initStreams();
     mockStreams();
+
     final signUpPage = GetMaterialApp(
       initialRoute: '/signup',
       getPages: [
@@ -128,23 +130,16 @@ void main() {
   testWidgets('Should present email error', (WidgetTester tester) async {
     await loadPage(tester);
 
-    emailErrorController.add('any error');
+    emailErrorController.add(UIError.invalidField);
     await tester.pump();
+    expect(find.text('Invalid field.'), findsOneWidget);
 
-    expect(find.text('any error'), findsOneWidget);
-
-    emailErrorController.add('');
+    emailErrorController.add(UIError.requiredField);
     await tester.pump();
-
-    expect(
-      find.descendant(
-          of: find.bySemanticsLabel('Email'), matching: find.byType(Text)),
-      findsOneWidget,
-    );
+    expect(find.text('Required field.'), findsOneWidget);
 
     emailErrorController.add(null);
     await tester.pump();
-
     expect(
       find.descendant(
           of: find.bySemanticsLabel('Email'), matching: find.byType(Text)),
@@ -155,23 +150,16 @@ void main() {
   testWidgets('Should present name error', (WidgetTester tester) async {
     await loadPage(tester);
 
-    nameErrorController.add('any error');
+    nameErrorController.add(UIError.invalidField);
     await tester.pump();
+    expect(find.text('Invalid field.'), findsOneWidget);
 
-    expect(find.text('any error'), findsOneWidget);
-
-    nameErrorController.add('');
+    nameErrorController.add(UIError.requiredField);
     await tester.pump();
-
-    expect(
-      find.descendant(
-          of: find.bySemanticsLabel('Name'), matching: find.byType(Text)),
-      findsOneWidget,
-    );
+    expect(find.text('Required field.'), findsOneWidget);
 
     nameErrorController.add(null);
     await tester.pump();
-
     expect(
       find.descendant(
           of: find.bySemanticsLabel('Name'), matching: find.byType(Text)),
@@ -182,23 +170,16 @@ void main() {
   testWidgets('Should present password error', (WidgetTester tester) async {
     await loadPage(tester);
 
-    passwordErrorController.add('any error');
+    passwordErrorController.add(UIError.invalidField);
     await tester.pump();
+    expect(find.text('Invalid field.'), findsOneWidget);
 
-    expect(find.text('any error'), findsOneWidget);
-
-    passwordErrorController.add('');
+    passwordErrorController.add(UIError.requiredField);
     await tester.pump();
-
-    expect(
-      find.descendant(
-          of: find.bySemanticsLabel('Password'), matching: find.byType(Text)),
-      findsOneWidget,
-    );
+    expect(find.text('Required field.'), findsOneWidget);
 
     passwordErrorController.add(null);
     await tester.pump();
-
     expect(
       find.descendant(
           of: find.bySemanticsLabel('Password'), matching: find.byType(Text)),
@@ -210,24 +191,16 @@ void main() {
       (WidgetTester tester) async {
     await loadPage(tester);
 
-    passwordConfirmationErrorController.add('any error');
+    passwordConfirmationErrorController.add(UIError.invalidField);
     await tester.pump();
+    expect(find.text('Invalid field.'), findsOneWidget);
 
-    expect(find.text('any error'), findsOneWidget);
-
-    passwordConfirmationErrorController.add('');
+    passwordConfirmationErrorController.add(UIError.requiredField);
     await tester.pump();
-
-    expect(
-      find.descendant(
-          of: find.bySemanticsLabel('Confirm password'),
-          matching: find.byType(Text)),
-      findsOneWidget,
-    );
+    expect(find.text('Required field.'), findsOneWidget);
 
     passwordConfirmationErrorController.add(null);
     await tester.pump();
-
     expect(
       find.descendant(
           of: find.bySemanticsLabel('Confirm password'),

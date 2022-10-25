@@ -1,5 +1,6 @@
 import 'package:test/test.dart';
 
+import 'package:polls/presentation/protocols/protocols.dart';
 import 'package:polls/validation/validators/validators.dart';
 
 void main() {
@@ -14,10 +15,10 @@ void main() {
   });
 
   test('Should return error if value is empty', () {
-    expect(sut.validate(''), 'Required field');
+    expect(sut.validate(''), ValidationError.requiredField);
   });
 
   test('Should return error if value is null', () {
-    expect(sut.validate(null), 'Required field');
+    expect(sut.validate(null), ValidationError.requiredField);
   });
 }
