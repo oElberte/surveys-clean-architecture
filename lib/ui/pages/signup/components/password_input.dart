@@ -14,7 +14,11 @@ class PasswordInput extends StatelessWidget {
         return TextFormField(
           decoration: InputDecoration(
             labelText: 'Password',
-            icon: Icon(Icons.lock, color: Theme.of(context).primaryColorLight),
+            icon: Icon(
+              Icons.lock,
+              color: Theme.of(context).primaryColorLight,
+            ),
+            errorText: snapshot.data?.isEmpty == true ? null : snapshot.data,
           ),
           obscureText: true,
           onChanged: presenter.validatePassword,

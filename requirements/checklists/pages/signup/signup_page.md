@@ -8,8 +8,8 @@
 5. ✅ Show error message if invalid email
 6. ✅ Remove error message if valid email
 7. ✅ Validate password when user type in the field
-8. Show error message if invalid password
-9. Remove error message if valid password
+8. ✅ Show error message if invalid password
+9. ✅ Remove error message if valid password
 10. ✅ Validate name when user type in the field
 11. ✅ Show error message if invalid name
 12. ✅ Remove error message if valid name
