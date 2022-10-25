@@ -14,11 +14,12 @@
 11. ✅ Show error message if invalid name
 12. ✅ Remove error message if valid name
 13. ✅ Validate password confirmation when user type in the field
-14. Show error message if invalid name
-15. Remove error message if valid name
+14. ✅ Show error message if invalid password confirmation
+15. ✅ Remove error message if valid password confirmation
 16. Enable the create account button if all fields are valid
 17. Disable the create account button if there's a field invalid
 18. Show loading in the start of creating account
 19. Call the create account method
 20. Show error message if creating account fails
 21. Hide loading in the end of creating account
+22. ✅ Close streams when the page is closed

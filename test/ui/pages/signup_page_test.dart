@@ -205,4 +205,34 @@ void main() {
       findsOneWidget,
     );
   });
+
+  testWidgets('Should present password confirmation error',
+      (WidgetTester tester) async {
+    await loadPage(tester);
+
+    passwordConfirmationErrorController.add('any error');
+    await tester.pump();
+
+    expect(find.text('any error'), findsOneWidget);
+
+    passwordConfirmationErrorController.add('');
+    await tester.pump();
+
+    expect(
+      find.descendant(
+          of: find.bySemanticsLabel('Confirm password'),
+          matching: find.byType(Text)),
+      findsOneWidget,
+    );
+
+    passwordConfirmationErrorController.add(null);
+    await tester.pump();
+
+    expect(
+      find.descendant(
+          of: find.bySemanticsLabel('Confirm password'),
+          matching: find.byType(Text)),
+      findsOneWidget,
+    );
+  });
 }
