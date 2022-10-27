@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:polls/ui/helpers/errors/errors.dart';
-import 'package:polls/ui/helpers/helpers.dart';
 import 'package:provider/provider.dart';
 
+import '../../../helpers/errors/errors.dart';
+import '../../../helpers/helpers.dart';
 import '../signup_presenter.dart';
 
 class PasswordInput extends StatelessWidget {
