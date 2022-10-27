@@ -20,6 +20,6 @@
 17. ✅ Disable the create account button if there's a field invalid
 18. ✅ Show loading in the start of creating account
 19. ✅ Call the create account method
-20. Show error message if creating account fails
+20. ✅ Show error message if creating account fails
 21. ✅ Hide loading in the end of creating account
 22. ✅ Close streams when the page is closed
