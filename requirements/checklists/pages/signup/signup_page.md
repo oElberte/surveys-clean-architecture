@@ -16,8 +16,8 @@
 13. ✅ Validate password confirmation when user type in the field
 14. ✅ Show error message if invalid password confirmation
 15. ✅ Remove error message if valid password confirmation
-16. Enable the create account button if all fields are valid
-17. Disable the create account button if there's a field invalid
+16. ✅ Enable the create account button if all fields are valid
+17. ✅ Disable the create account button if there's a field invalid
 18. Show loading in the start of creating account
 19. Call the create account method
 20. Show error message if creating account fails
