@@ -1,4 +1,3 @@
-
 import 'package:faker/faker.dart';
 import 'package:polls/presentation/protocols/protocols.dart';
 import 'package:polls/validation/validators/validators.dart';
@@ -12,30 +11,36 @@ void main() {
   });
 
   test('Should return error if value is empty', () {
-    expect(sut.validate(''), ValidationError.invalidField);
+    expect(sut.validate({'any_field': ''}), ValidationError.invalidField);
   });
 
   test('Should return error if value is null', () {
-    expect(sut.validate(null), ValidationError.invalidField);
+    expect(sut.validate({'any_field': null}), ValidationError.invalidField);
   });
 
   test('Should return error if value is less min length', () {
     expect(
-      sut.validate(faker.randomGenerator.string(4, min: 1)),
+      sut.validate({
+        'any_field': faker.randomGenerator.string(4, min: 1),
+      }),
       ValidationError.invalidField,
     );
   });
 
   test('Should return null if value is less equal than min length', () {
     expect(
-      sut.validate(faker.randomGenerator.string(5, min: 5)),
+      sut.validate(
+        {'any_field': faker.randomGenerator.string(5, min: 5)},
+      ),
       null,
     );
   });
 
   test('Should return null if value is greater than min length', () {
     expect(
-      sut.validate(faker.randomGenerator.string(10, min: 6)),
+      sut.validate({
+        'any_field': faker.randomGenerator.string(10, min: 6),
+      }),
       null,
     );
   });
