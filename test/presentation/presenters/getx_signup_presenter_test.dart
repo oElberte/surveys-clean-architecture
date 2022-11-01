@@ -13,10 +13,13 @@ class ValidationSpy extends Mock implements Validation {}
 
 class CreateAccountSpy extends Mock implements CreateAccount {}
 
+class SaveCurrentAccountSpy extends Mock implements SaveCurrentAccount {}
+
 void main() {
   GetxSignUpPresenter sut;
   ValidationSpy validation;
   CreateAccountSpy createAccount;
+  SaveCurrentAccountSpy saveCurrentAccount;
   String email;
   String password;
   String passwordConfirmation;
@@ -40,9 +43,11 @@ void main() {
   setUp(() {
     validation = ValidationSpy();
     createAccount = CreateAccountSpy();
+    saveCurrentAccount = SaveCurrentAccountSpy();
     sut = GetxSignUpPresenter(
       validation: validation,
       createAccount: createAccount,
+      saveCurrentAccount: saveCurrentAccount,
     );
     email = faker.internet.email();
     password = faker.internet.password();
@@ -251,5 +256,16 @@ void main() {
         passwordConfirmation: passwordConfirmation,
       ),
     )).called(1);
+  });
+
+  test('Should call SaveCurrentAccount with correct value', () async {
+    sut.validateName(name);
+    sut.validateEmail(email);
+    sut.validatePassword(password);
+    sut.validatePasswordConfirmation(passwordConfirmation);
+
+    await sut.signUp();
+
+    verify(saveCurrentAccount.save(AccountEntity(token))).called(1);
   });
 }
