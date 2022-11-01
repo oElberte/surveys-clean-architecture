@@ -1,22 +1,8 @@
-import 'package:meta/meta.dart';
 
 import 'package:faker/faker.dart';
 import 'package:polls/presentation/protocols/protocols.dart';
-import 'package:polls/validation/protocols/protocols.dart';
+import 'package:polls/validation/validators/validators.dart';
 import 'package:test/test.dart';
-
-class MinLengthValidation implements FieldValidation {
-  final String field;
-  final int length;
-
-  MinLengthValidation({@required this.field, @required this.length});
-
-  ValidationError validate(String value) {
-    return value != null && value.length >= length
-        ? null
-        : ValidationError.invalidField;
-  }
-}
 
 void main() {
   MinLengthValidation sut;
