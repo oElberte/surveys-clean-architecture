@@ -147,4 +147,15 @@ void main() {
       findsWidgets,
     );
   });
+
+  testWidgets('Should call LoadSurveys on refresh button click',
+      (WidgetTester tester) async {
+    await loadPage(tester);
+
+    loadSurveysController.addError(UIError.unexpected.description);
+    await tester.pump();
+    await tester.tap(find.text('Refresh'));
+
+    verify(presenter.loadData()).called(2);
+  });
 }
