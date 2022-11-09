@@ -8,7 +8,7 @@ import 'package:polls/domain/usecases/usecases.dart';
 import 'package:polls/data/http/http.dart';
 import 'package:polls/data/usecases/usecases.dart';
 
-class HttpClientSpy extends Mock implements HttpClient {}
+class HttpClientSpy extends Mock implements HttpClient<Map> {}
 
 void main() {
   RemoteAuthentication sut;
