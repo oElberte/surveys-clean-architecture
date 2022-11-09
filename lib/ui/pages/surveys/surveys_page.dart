@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../components/components.dart';
 import '../../helpers/helpers.dart';
 import 'components/components.dart';
-import 'surveys_presenter.dart';
+import 'surveys.dart';
 
 class SurveysPage extends StatelessWidget {
   final SurveysPresenter presenter;
@@ -29,19 +29,36 @@ class SurveysPage extends StatelessWidget {
             }
           });
 
-          return Padding(
-            padding: EdgeInsets.symmetric(vertical: 20),
-            child: CarouselSlider(
-              options: CarouselOptions(
-                enlargeCenterPage: true,
-                aspectRatio: 1,
-              ),
-              items: [
-                SurveyItem(),
-                SurveyItem(),
-                SurveyItem(),
-              ],
-            ),
+          return StreamBuilder<List<SurveyViewModel>>(
+            stream: presenter.loadSurveysStream,
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Column(
+                  children: [
+                    Text(snapshot.error),
+                    RaisedButton(
+                      onPressed: () {},
+                      child: Text(R.string.refresh),
+                    ),
+                  ],
+                );
+              }
+
+              return Padding(
+                padding: EdgeInsets.symmetric(vertical: 20),
+                child: CarouselSlider(
+                  options: CarouselOptions(
+                    enlargeCenterPage: true,
+                    aspectRatio: 1,
+                  ),
+                  items: [
+                    SurveyItem(),
+                    SurveyItem(),
+                    SurveyItem(),
+                  ],
+                ),
+              );
+            },
           );
         },
       ),
