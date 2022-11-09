@@ -7,23 +7,26 @@ import 'package:polls/ui/pages/pages.dart';
 class SurveysPresenterSpy extends Mock implements SurveysPresenter {}
 
 void main() {
-  testWidgets(
-    'Should call LoadSurveys on page load',
-    (WidgetTester tester) async {
-      final presenter = SurveysPresenterSpy();
-      final surveysPage = GetMaterialApp(
-        initialRoute: '/surveys',
-        getPages: [
-          GetPage(
-            name: '/surveys',
-            page: () => SurveysPage(presenter),
-          ),
-        ],
-      );
+  SurveysPresenterSpy presenter;
 
-      await tester.pumpWidget(surveysPage);
+  Future<void> loadPage(WidgetTester tester) async {
+    presenter = SurveysPresenterSpy();
+    final surveysPage = GetMaterialApp(
+      initialRoute: '/surveys',
+      getPages: [
+        GetPage(
+          name: '/surveys',
+          page: () => SurveysPage(presenter),
+        ),
+      ],
+    );
+    await tester.pumpWidget(surveysPage);
+  }
 
-      verify(presenter.loadData()).called(1);
-    },
-  );
+  testWidgets('Should call LoadSurveys on page load',
+      (WidgetTester tester) async {
+    await loadPage(tester);
+
+    verify(presenter.loadData()).called(1);
+  });
 }
