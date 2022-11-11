@@ -7,7 +7,7 @@ import '../../http/http.dart';
 import '../../models/models.dart';
 
 class RemoteCreateAccount implements CreateAccount {
-  final HttpClient<Map> httpClient;
+  final HttpClient httpClient;
   final String url;
 
   RemoteCreateAccount({
