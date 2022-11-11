@@ -1,7 +1,7 @@
 import 'package:faker/faker.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:mockito/mockito.dart';
-import 'package:polls/infra/cache/cache.dart';
+import 'package:surveys/infra/cache/cache.dart';
 import 'package:test/test.dart';
 
 class FlutterSecureStorageSpy extends Mock implements FlutterSecureStorage {}

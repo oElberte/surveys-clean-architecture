@@ -2,11 +2,11 @@ import 'package:faker/faker.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
-import 'package:polls/domain/helpers/helpers.dart';
-import 'package:polls/domain/entities/entities.dart';
+import 'package:surveys/domain/helpers/helpers.dart';
+import 'package:surveys/domain/entities/entities.dart';
 
-import 'package:polls/data/usecases/usecases.dart';
-import 'package:polls/data/cache/cache.dart';
+import 'package:surveys/data/usecases/usecases.dart';
+import 'package:surveys/data/cache/cache.dart';
 
 class FetchSecureCacheStorageSpy extends Mock
     implements FetchSecureCacheStorage {}

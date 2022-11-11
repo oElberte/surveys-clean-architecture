@@ -1,14 +1,14 @@
 import 'package:faker/faker.dart';
-import 'package:polls/domain/helpers/helpers.dart';
-import 'package:polls/presentation/presenters/presenters.dart';
-import 'package:polls/ui/helpers/errors/errors.dart';
+import 'package:surveys/domain/helpers/helpers.dart';
+import 'package:surveys/presentation/presenters/presenters.dart';
+import 'package:surveys/ui/helpers/errors/errors.dart';
 import 'package:test/test.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:polls/domain/entities/entities.dart';
-import 'package:polls/domain/usecases/usecases.dart';
+import 'package:surveys/domain/entities/entities.dart';
+import 'package:surveys/domain/usecases/usecases.dart';
 
-import 'package:polls/ui/pages/pages.dart';
+import 'package:surveys/ui/pages/pages.dart';
 
 class LoadSurveysSpy extends Mock implements LoadSurveys {}
 

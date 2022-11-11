@@ -1,7 +1,7 @@
 import 'package:test/test.dart';
 
-import 'package:polls/validation/validators/validators.dart';
-import 'package:polls/main/factories/factories.dart';
+import 'package:surveys/validation/validators/validators.dart';
+import 'package:surveys/main/factories/factories.dart';
 
 void main() {
   test('Should return the correct validations', () {

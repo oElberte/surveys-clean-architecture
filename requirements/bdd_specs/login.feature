@@ -1,7 +1,7 @@
 Feature: Login
 As a client
 I want to access my account and remain logged
-So I can see and answer polls quickly
+So I can see and answer surveys quickly
 
 Scenario: Valid credentials
 Given that the client provided valid credentials

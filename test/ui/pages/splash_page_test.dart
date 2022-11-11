@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:polls/ui/pages/pages.dart';
+import 'package:surveys/ui/pages/pages.dart';
 
 class SplashPresenterSpy extends Mock implements SplashPresenter {}
 

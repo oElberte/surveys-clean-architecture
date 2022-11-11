@@ -1,10 +1,10 @@
 import 'package:faker/faker.dart';
 import 'package:mockito/mockito.dart';
-import 'package:polls/domain/entities/entities.dart';
-import 'package:polls/presentation/presenters/presenters.dart';
+import 'package:surveys/domain/entities/entities.dart';
+import 'package:surveys/presentation/presenters/presenters.dart';
 import 'package:test/test.dart';
 
-import 'package:polls/domain/usecases/usecases.dart';
+import 'package:surveys/domain/usecases/usecases.dart';
 
 class LoadCurrentAccountSpy extends Mock implements LoadCurrentAccount {}
 

@@ -1,5 +1,5 @@
-import 'package:polls/presentation/protocols/protocols.dart';
-import 'package:polls/validation/validators/validators.dart';
+import 'package:surveys/presentation/protocols/protocols.dart';
+import 'package:surveys/validation/validators/validators.dart';
 import 'package:test/test.dart';
 
 void main() {

@@ -1,5 +1,5 @@
-name: polls
-description: Polls for developers.
+name: surveys
+description: Surveys for developers.
 publish_to: 'none'
 version: 0.0.1
 
