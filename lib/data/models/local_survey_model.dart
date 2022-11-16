@@ -29,6 +29,15 @@ class LocalSurveyModel {
     );
   }
 
+  factory LocalSurveyModel.fromEntity(SurveyEntity entity) {
+    return LocalSurveyModel(
+      id: entity.id,
+      question: entity.question,
+      date: entity.date,
+      didAnswer: entity.didAnswer,
+    );
+  }
+
   SurveyEntity toEntity() {
     return SurveyEntity(
       id: id,
@@ -36,5 +45,14 @@ class LocalSurveyModel {
       date: date,
       didAnswer: didAnswer,
     );
+  }
+
+  Map<String, String> toJson() {
+    return {
+      'id': id,
+      'question': question,
+      'date': date.toIso8601String(),
+      'didAnswer': didAnswer.toString(),
+    };
   }
 }
