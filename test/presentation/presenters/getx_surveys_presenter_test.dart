@@ -34,7 +34,7 @@ void main() {
     ];
   }
 
-  PostExpectation mockLoadSurveysCall() => when(loadSurveys.load());
+  PostExpectation mockLoadSurveysCall() => when(loadSurveys.loadBySurvey());
 
   void mockLoadSurveys(List<SurveyEntity> data) {
     surveys = data;
@@ -53,7 +53,7 @@ void main() {
   test('Should call LoadSurveys on loadData', () async {
     await sut.loadData();
 
-    verify(loadSurveys.load()).called(1);
+    verify(loadSurveys.loadBySurvey()).called(1);
   });
 
   test('Should emit correct events on success', () async {
