@@ -1,9 +1,9 @@
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
+import 'package:surveys/main/composites/composites.dart';
 import 'package:surveys/presentation/protocols/protocols.dart';
 import 'package:surveys/validation/protocols/protocols.dart';
-import 'package:surveys/validation/validators/validators.dart';
 
 class FieldValidationSpy extends Mock implements FieldValidation {}
 
