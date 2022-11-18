@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
 
-import './survey_result.dart';
+import 'survey_result.dart';
 
 class SurveyResultViewModel {
   final String surveyId;

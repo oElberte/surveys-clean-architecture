@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../components/components.dart';
 import '../../helpers/helpers.dart';
-import './survey_result.dart';
-import './components/components.dart';
+import 'components/components.dart';
+import 'survey_result.dart';
 
 class SurveyResultPage extends StatelessWidget {
   final SurveyResultPresenter presenter;

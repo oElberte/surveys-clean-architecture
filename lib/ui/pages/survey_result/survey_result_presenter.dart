@@ -1,4 +1,4 @@
-import './survey_result.dart';
+import 'survey_result.dart';
 
 abstract class SurveyResultPresenter {
   Stream<bool> get isLoadingStream;

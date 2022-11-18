@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-import './entities.dart';
+import 'entities.dart';
 
 class SurveyResultEntity extends Equatable {
   final String surveyId;

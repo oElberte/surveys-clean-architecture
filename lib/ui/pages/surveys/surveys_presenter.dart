@@ -1,4 +1,4 @@
-import './survey_viewmodel.dart';
+import 'survey_viewmodel.dart';
 
 abstract class SurveysPresenter {
   Stream<bool> get isLoadingStream;
