@@ -6,5 +6,6 @@ HttpClient makeAuthorizeHttpClientDecorator() {
   return AuthorizeHttpClientDecorator(
     decoratee: makeHttpAdapter(),
     fetchSecureCacheStorage: makeSecureStorageAdapter(),
+    deleteSecureCacheStorage: makeSecureStorageAdapter(),
   );
 }
