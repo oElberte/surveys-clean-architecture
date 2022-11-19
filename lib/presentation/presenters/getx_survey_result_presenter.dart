@@ -36,7 +36,7 @@ class GetxSurveyResultPresenter implements SurveyResultPresenter {
                 image: answer.image,
                 answer: answer.answer,
                 isCurrentAnswer: answer.isCurrentAnswer,
-                percent: '${answer.percent}',
+                percent: '${answer.percent}%',
               ),
             )
             .toList(),
