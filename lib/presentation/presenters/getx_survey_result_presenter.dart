@@ -1,5 +1,5 @@
-import 'package:get/get.dart';
 import 'package:meta/meta.dart';
+import 'package:get/get.dart';
 
 import '../../domain/helpers/helpers.dart';
 import '../../domain/usecases/usecases.dart';
@@ -7,7 +7,7 @@ import '../../ui/helpers/helpers.dart';
 import '../../ui/pages/pages.dart';
 import '../mixins/mixins.dart';
 
-class GetxSurveyResultPresenter with SessionManager, LoadingManager implements SurveyResultPresenter {
+class GetxSurveyResultPresenter extends GetxController with SessionManager, LoadingManager implements SurveyResultPresenter {
   final LoadSurveyResult loadSurveyResult;
   final String surveyId;
 
