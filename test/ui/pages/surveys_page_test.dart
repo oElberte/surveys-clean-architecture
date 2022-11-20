@@ -50,8 +50,10 @@ void main() {
     presenter = SurveysPresenterSpy();
     initStreams();
     mockStreams();
+    final routeObserver = Get.put<RouteObserver>(RouteObserver<PageRoute>());
     final surveysPage = GetMaterialApp(
       initialRoute: '/surveys',
+      navigatorObservers: [routeObserver],
       getPages: [
         GetPage(
           name: '/surveys',
@@ -60,6 +62,7 @@ void main() {
         GetPage(
           name: '/any_route',
           page: () => Scaffold(
+            appBar: AppBar(title: Text('any_title')),
             body: Text('fake_page'),
           ),
         ),
@@ -98,6 +101,16 @@ void main() {
     await loadPage(tester);
 
     verify(presenter.loadData()).called(1);
+  });
+
+  testWidgets('Should call LoadSurveys on reload', (WidgetTester tester) async {
+    await loadPage(tester);
+
+    navigateToController.add('/any_route');
+    await tester.pumpAndSettle();
+    await tester.pageBack();
+
+    verify(presenter.loadData()).called(2);
   });
 
   testWidgets('Should handle loading correctly', (WidgetTester tester) async {

@@ -22,7 +22,6 @@ class SurveyResultPage extends StatelessWidget
         builder: (context) {
           handleLoading(context, presenter.isLoadingStream);
           handleSessionExpired(presenter.isSessionExpiredStream);
-
           presenter.loadData();
 
           return StreamBuilder<SurveyResultViewModel>(
