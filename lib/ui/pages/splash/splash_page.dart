@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../pages.dart';
 import '../../mixins/mixins.dart';
+import '../pages.dart';
 
 class SplashPage extends StatelessWidget with NavigationManager {
   final SplashPresenter presenter;
