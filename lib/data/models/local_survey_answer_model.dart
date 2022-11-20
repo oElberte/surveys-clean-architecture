@@ -29,6 +29,15 @@ class LocalSurveyAnswerModel {
     );
   }
 
+  factory LocalSurveyAnswerModel.fromEntity(SurveyAnswerEntity entity) {
+    return LocalSurveyAnswerModel(
+      image: entity.image,
+      answer: entity.answer,
+      percent: entity.percent,
+      isCurrentAnswer: entity.isCurrentAnswer,
+    );
+  }
+
   SurveyAnswerEntity toEntity() {
     return SurveyAnswerEntity(
       image: image,
@@ -36,5 +45,14 @@ class LocalSurveyAnswerModel {
       isCurrentAnswer: isCurrentAnswer,
       percent: percent,
     );
+  }
+
+  Map toJson() {
+    return {
+      'image': image,
+      'answer': answer,
+      'isCurrentAnswer': isCurrentAnswer.toString(),
+      'percent': percent.toString(),
+    };
   }
 }

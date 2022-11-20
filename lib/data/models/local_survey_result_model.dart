@@ -30,11 +30,32 @@ class LocalSurveyResultModel {
     );
   }
 
+  factory LocalSurveyResultModel.fromEntity(SurveyResultEntity entity) {
+    return LocalSurveyResultModel(
+      surveyId: entity.surveyId,
+      question: entity.question,
+      answers: entity.answers
+          .map<LocalSurveyAnswerModel>(
+              (answer) => LocalSurveyAnswerModel.fromEntity(answer))
+          .toList(),
+    );
+  }
+
   SurveyResultEntity toEntity() {
     return SurveyResultEntity(
       surveyId: surveyId,
       question: question,
-      answers: answers.map<SurveyAnswerEntity>((answer) => answer.toEntity()).toList(),
+      answers: answers
+          .map<SurveyAnswerEntity>((answer) => answer.toEntity())
+          .toList(),
     );
+  }
+
+  Map toJson() {
+    return {
+      'surveyId': surveyId,
+      'question': question,
+      'answers': answers.map<Map>((answer) => answer.toJson()).toList(),
+    };
   }
 }
