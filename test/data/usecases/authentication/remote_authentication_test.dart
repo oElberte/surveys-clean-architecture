@@ -7,6 +7,7 @@ import 'package:surveys/domain/usecases/usecases.dart';
 
 import 'package:surveys/data/http/http.dart';
 import 'package:surveys/data/usecases/usecases.dart';
+import '../../../mocks/mocks.dart';
 
 class HttpClientSpy extends Mock implements HttpClient {}
 
@@ -15,9 +16,7 @@ void main() {
   HttpClientSpy httpClient;
   String url;
   AuthenticationParams params;
-
-  Map mockValidData() =>
-      {'accessToken': faker.guid.guid(), 'name': faker.person.name()};
+  Map apiResult;
 
   PostExpectation mockRequest() {
     return when(
@@ -30,6 +29,7 @@ void main() {
   }
 
   void mockHttpData(Map data) {
+    apiResult = data;
     mockRequest().thenAnswer((_) async => data);
   }
 
@@ -42,13 +42,9 @@ void main() {
     url = faker.internet.httpUrl();
     //SUT = System under test
     sut = RemoteAuthentication(httpClient: httpClient, url: url);
-    params = AuthenticationParams(
-      email: faker.internet.email(),
-      password: faker.internet.password(),
-    );
-
+    params = FakeParamsFactory.makeAuthentication();
     //Every test that does nothing as default, will return a success case
-    mockHttpData(mockValidData());
+    mockHttpData(FakeAccountFactory.makeApiJson());
   });
 
   test('Should call HttpClient with correct values', () async {
@@ -95,13 +91,9 @@ void main() {
   });
 
   test('Should return an Account if HttpClient returns 200', () async {
-    final validData = mockValidData();
-    
-    mockHttpData(validData);
-
     final account = await sut.auth(params);
 
-    expect(account.token, validData['accessToken']);
+    expect(account.token, apiResult['accessToken']);
   });
 
   test(

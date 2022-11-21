@@ -10,6 +10,8 @@ import 'package:surveys/domain/usecases/usecases.dart';
 
 import 'package:surveys/ui/pages/pages.dart';
 
+import '../../mocks/mocks.dart';
+
 class LoadSurveyResultSpy extends Mock implements LoadSurveyResult {}
 
 class SaveSurveyResultSpy extends Mock implements SaveSurveyResult {}
@@ -22,26 +24,6 @@ void main() {
   SurveyResultEntity saveResult;
   String surveyId;
   String answer;
-
-  SurveyResultEntity mockValidData() {
-    return SurveyResultEntity(
-      surveyId: faker.guid.guid(),
-      question: faker.lorem.sentence(),
-      answers: [
-        SurveyAnswerEntity(
-          image: faker.internet.httpUrl(),
-          answer: faker.lorem.sentence(),
-          isCurrentAnswer: faker.randomGenerator.boolean(),
-          percent: faker.randomGenerator.integer(100),
-        ),
-        SurveyAnswerEntity(
-          answer: faker.lorem.sentence(),
-          isCurrentAnswer: faker.randomGenerator.boolean(),
-          percent: faker.randomGenerator.integer(100),
-        ),
-      ],
-    );
-  }
 
   PostExpectation mockLoadSurveyResultCall() =>
       when(loadSurveyResult.loadBySurvey(surveyId: anyNamed('surveyId')));
@@ -59,31 +41,30 @@ void main() {
 
   void mockSaveSurveyResult(SurveyResultEntity data) {
     saveResult = data;
-    mockSaveSurveyResultCall().thenAnswer((_) async => loadResult);
+    mockSaveSurveyResultCall().thenAnswer((_) async => saveResult);
   }
 
   void mockSaveSurveyResultError(DomainError error) =>
       mockSaveSurveyResultCall().thenThrow(error);
 
-  SurveyResultViewModel mapToViewModel(SurveyResultEntity entity) {
-    return SurveyResultViewModel(
-      surveyId: entity.surveyId,
-      question: entity.question,
-      answers: [
-        SurveyAnswerViewModel(
-          image: entity.answers[0].image,
-          answer: entity.answers[0].answer,
-          isCurrentAnswer: entity.answers[0].isCurrentAnswer,
-          percent: '${entity.answers[0].percent}%',
-        ),
-        SurveyAnswerViewModel(
-          answer: entity.answers[1].answer,
-          isCurrentAnswer: entity.answers[1].isCurrentAnswer,
-          percent: '${entity.answers[1].percent}%',
-        ),
-      ],
-    );
-  }
+  SurveyResultViewModel mapToViewModel(SurveyResultEntity entity) =>
+      SurveyResultViewModel(
+        surveyId: entity.surveyId,
+        question: entity.question,
+        answers: [
+          SurveyAnswerViewModel(
+            image: entity.answers[0].image,
+            answer: entity.answers[0].answer,
+            isCurrentAnswer: entity.answers[0].isCurrentAnswer,
+            percent: '${entity.answers[0].percent}%',
+          ),
+          SurveyAnswerViewModel(
+            answer: entity.answers[1].answer,
+            isCurrentAnswer: entity.answers[1].isCurrentAnswer,
+            percent: '${entity.answers[1].percent}%',
+          ),
+        ],
+      );
 
   setUp(() {
     surveyId = faker.guid.guid();
@@ -95,8 +76,8 @@ void main() {
       saveSurveyResult: saveSurveyResult,
       surveyId: surveyId,
     );
-    mockLoadSurveyResult(mockValidData());
-    mockSaveSurveyResult(mockValidData());
+    mockLoadSurveyResult(FakeSurveyResultFactory.makeEntity());
+    mockSaveSurveyResult(FakeSurveyResultFactory.makeEntity());
   });
 
   group('loadData', () {

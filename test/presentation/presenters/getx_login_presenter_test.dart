@@ -11,6 +11,8 @@ import 'package:surveys/domain/usecases/usecases.dart';
 import 'package:surveys/presentation/presenters/presenters.dart';
 import 'package:surveys/presentation/protocols/protocols.dart';
 
+import '../../mocks/mocks.dart';
+
 class ValidationSpy extends Mock implements Validation {}
 
 class AuthenticationSpy extends Mock implements Authentication {}
@@ -24,7 +26,7 @@ void main() {
   SaveCurrentAccountSpy saveCurrentAccount;
   String email;
   String password;
-  String token;
+  AccountEntity account;
 
   PostExpectation mockValidationCall(String field) => when(validation.validate(
         field: field == null ? anyNamed('field') : field,
@@ -37,8 +39,9 @@ void main() {
 
   PostExpectation mockAuthenticationCall() => when(authentication.auth(any));
 
-  void mockAuthentication() {
-    mockAuthenticationCall().thenAnswer((_) async => AccountEntity(token));
+  void mockAuthentication(AccountEntity data) {
+    account = data;
+    mockAuthenticationCall().thenAnswer((_) async => data);
   }
 
   void mockAuthenticationError(DomainError error) {
@@ -63,9 +66,8 @@ void main() {
     );
     email = faker.internet.email();
     password = faker.internet.password();
-    token = faker.guid.guid();
     mockValidation();
-    mockAuthentication();
+    mockAuthentication(FakeAccountFactory.makeEntity());
   });
 
   test('Should call Validation with correct email', () {
@@ -182,7 +184,7 @@ void main() {
 
     await sut.auth();
 
-    verify(saveCurrentAccount.save(AccountEntity(token))).called(1);
+    verify(saveCurrentAccount.save(account)).called(1);
   });
 
   test('Should emit UnexpectedError if SaveCurrentAccount fails', () async {
@@ -222,7 +224,8 @@ void main() {
     sut.validateEmail(email);
     sut.validatePassword(password);
 
-    expectLater(sut.mainErrorStream, emitsInOrder([null, UIError.invalidCredentials]));
+    expectLater(
+        sut.mainErrorStream, emitsInOrder([null, UIError.invalidCredentials]));
     expectLater(sut.isLoadingStream, emitsInOrder([true, false]));
 
     await sut.auth();
