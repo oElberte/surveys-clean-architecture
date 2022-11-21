@@ -1,12 +1,12 @@
 import 'package:faker/faker.dart';
 import 'package:mockito/mockito.dart';
-import 'package:surveys/domain/helpers/helpers.dart';
 import 'package:test/test.dart';
 
+import 'package:surveys/domain/helpers/helpers.dart';
 import 'package:surveys/domain/usecases/usecases.dart';
-
 import 'package:surveys/data/http/http.dart';
 import 'package:surveys/data/usecases/usecases.dart';
+import '../../../mocks/mocks.dart';
 
 class HttpClientSpy extends Mock implements HttpClient {}
 
@@ -15,11 +15,7 @@ void main() {
   HttpClientSpy httpClient;
   String url;
   CreateAccountParams params;
-
-  Map mockValidData() => {
-        'accessToken': faker.guid.guid(),
-        'name': faker.person.name(),
-      };
+  Map apiResult;
 
   PostExpectation mockRequest() {
     return when(
@@ -32,6 +28,7 @@ void main() {
   }
 
   void mockHttpData(Map data) {
+    apiResult = data;
     mockRequest().thenAnswer((_) async => data);
   }
 
@@ -46,13 +43,8 @@ void main() {
       httpClient: httpClient,
       url: url,
     );
-    params = CreateAccountParams(
-      name: faker.person.name(),
-      email: faker.internet.email(),
-      password: faker.internet.password(),
-      passwordConfirmation: faker.internet.password(),
-    );
-    mockHttpData(mockValidData());
+    params = FakeParamsFactory.makeCreateAccount();
+    mockHttpData(FakeAccountFactory.makeApiJson());
   });
 
   test('Should call HttpClient with correct values', () async {
@@ -104,13 +96,9 @@ void main() {
   });
 
   test('Should return an Account if HttpClient returns 200', () async {
-    final validData = mockValidData();
-
-    mockHttpData(validData);
-
     final account = await sut.create(params);
 
-    expect(account.token, validData['accessToken']);
+    expect(account.token, apiResult['accessToken']);
   });
 
   test(
