@@ -7,15 +7,15 @@ import 'package:surveys/data/http/http.dart';
 
 import 'package:surveys/infra/http/http.dart';
 
-class ClientSpy extends Mock implements Client {}
+import '../mocks/mocks.dart';
 
 void main() {
-  HttpAdapter sut;
-  ClientSpy client;
-  String url;
+  late HttpAdapter sut;
+  late MockClient client;
+  late String url;
 
   setUp(() {
-    client = ClientSpy();
+    client = MockClient();
     sut = HttpAdapter(client);
     url = faker.internet.httpUrl();
   });
@@ -52,7 +52,7 @@ void main() {
         body: {'any_key': 'any_value'},
       );
       verify(client.post(
-        url,
+        Uri.parse(url),
         headers: {
           'content-type': 'application/json',
           'accept': 'application/json',
@@ -67,7 +67,7 @@ void main() {
         headers: {'any_header': 'any_value'},
       );
       verify(client.post(
-        url,
+        Uri.parse(url),
         headers: {
           'content-type': 'application/json',
           'accept': 'application/json',
@@ -199,7 +199,7 @@ void main() {
         method: 'get',
       );
       verify(client.get(
-        url,
+        Uri.parse(url),
         headers: {
           'content-type': 'application/json',
           'accept': 'application/json',
@@ -212,7 +212,7 @@ void main() {
         headers: {'any_header': 'any_value'},
       );
       verify(client.get(
-        url,
+        Uri.parse(url),
         headers: {
           'content-type': 'application/json',
           'accept': 'application/json',
@@ -333,7 +333,7 @@ void main() {
         body: {'any_key': 'any_value'},
       );
       verify(client.put(
-        url,
+        Uri.parse(url),
         headers: {
           'content-type': 'application/json',
           'accept': 'application/json',
@@ -348,7 +348,7 @@ void main() {
         headers: {'any_header': 'any_value'},
       );
       verify(client.put(
-        url,
+        Uri.parse(url),
         headers: {
           'content-type': 'application/json',
           'accept': 'application/json',

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 Widget makePage({
-  @required String path,
-  @required Widget Function() page,
+  required String path,
+  required Widget Function() page,
 }) {
   final getPages = [
     GetPage(

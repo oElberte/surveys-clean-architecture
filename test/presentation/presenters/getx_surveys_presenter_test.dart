@@ -5,20 +5,18 @@ import 'package:test/test.dart';
 import 'package:mockito/mockito.dart';
 
 import 'package:surveys/domain/entities/entities.dart';
-import 'package:surveys/domain/usecases/usecases.dart';
 
 import 'package:surveys/ui/pages/pages.dart';
 
-import '../../mocks/mocks.dart';
-
-class LoadSurveysSpy extends Mock implements LoadSurveys {}
+import '../../domain/mocks/mocks.dart';
+import '../mocks/mocks.dart';
 
 void main() {
-  GetxSurveysPresenter sut;
-  LoadSurveysSpy loadSurveys;
-  List<SurveyEntity> surveys;
+  late GetxSurveysPresenter sut;
+  late MockLoadSurveys loadSurveys;
+  late List<SurveyEntity> surveys;
 
-  PostExpectation mockLoadSurveysCall() => when(loadSurveys.loadBySurvey());
+  PostExpectation mockLoadSurveysCall() => when(loadSurveys.load());
 
   void mockLoadSurveys(List<SurveyEntity> data) {
     surveys = data;
@@ -32,15 +30,15 @@ void main() {
       mockLoadSurveysCall().thenThrow(DomainError.accessDenied);
 
   setUp(() {
-    loadSurveys = LoadSurveysSpy();
+    loadSurveys = MockLoadSurveys();
     sut = GetxSurveysPresenter(loadSurveys: loadSurveys);
-    mockLoadSurveys(FakeSurveysFactory.makeEntities());
+    mockLoadSurveys(EntityFactory.makeSurveyList());
   });
 
   test('Should call LoadSurveys on loadData', () async {
     await sut.loadData();
 
-    verify(loadSurveys.loadBySurvey()).called(1);
+    verify(loadSurveys.load()).called(1);
   });
 
   test('Should emit correct events on success', () async {

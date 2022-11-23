@@ -1,4 +1,5 @@
-.fvm/flutter_sdk
+.fvm/flutter_sdk/
+build.yaml
 # Miscellaneous
 *.class
 *.log

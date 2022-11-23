@@ -4,7 +4,7 @@ import 'package:surveys/presentation/protocols/protocols.dart';
 import 'package:surveys/validation/validators/validators.dart';
 
 void main() {
-  EmailValidation sut;
+  late EmailValidation sut;
 
   setUp(() {
     sut = EmailValidation('any_field');

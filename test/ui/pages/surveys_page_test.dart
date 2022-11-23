@@ -7,23 +7,21 @@ import 'package:surveys/ui/helpers/helpers.dart';
 
 import 'package:surveys/ui/pages/pages.dart';
 
-import '../../mocks/mocks.dart';
 import '../helpers/helpers.dart';
-
-class SurveysPresenterSpy extends Mock implements SurveysPresenter {}
+import '../mocks/mocks.dart';
 
 void main() {
-  SurveysPresenterSpy presenter;
-  StreamController<bool> isLoadingController;
-  StreamController<bool> isSessionExpiredController;
-  StreamController<List<SurveyViewModel>> surveysController;
-  StreamController<String> navigateToController;
+  late SurveysPresenter presenter;
+  late StreamController<bool> isLoadingController;
+  late StreamController<bool> isSessionExpiredController;
+  late StreamController<List<SurveyViewModel>> surveysController;
+  late StreamController<String?> navigateToController;
 
   void initStreams() {
     isLoadingController = StreamController<bool>();
     isSessionExpiredController = StreamController<bool>();
     surveysController = StreamController<List<SurveyViewModel>>();
-    navigateToController = StreamController<String>();
+    navigateToController = StreamController<String?>();
   }
 
   void mockStreams() {
@@ -49,7 +47,7 @@ void main() {
   }
 
   Future<void> loadPage(WidgetTester tester) async {
-    presenter = SurveysPresenterSpy();
+    presenter = MockSurveysPresenter();
     initStreams();
     mockStreams();
     await tester.pumpWidget(makePage(
@@ -91,10 +89,6 @@ void main() {
     isLoadingController.add(true);
     await tester.pump();
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
-
-    isLoadingController.add(null);
-    await tester.pump();
-    expect(find.byType(CircularProgressIndicator), findsNothing);
   });
 
   testWidgets('Should present error if surveysStream fails',
@@ -122,7 +116,7 @@ void main() {
       (WidgetTester tester) async {
     await loadPage(tester);
 
-    surveysController.add(FakeSurveysFactory.makeViewModel());
+    surveysController.add(ViewModelFactory.makeSurveyList());
     await tester.pump();
 
     expect(
@@ -166,7 +160,7 @@ void main() {
       (WidgetTester tester) async {
     await loadPage(tester);
 
-    surveysController.add(FakeSurveysFactory.makeViewModel());
+    surveysController.add(ViewModelFactory.makeSurveyList());
     await tester.pump();
 
     await tester.tap(find.text('Question 1'));
@@ -211,10 +205,6 @@ void main() {
     await loadPage(tester);
 
     isSessionExpiredController.add(false);
-    await tester.pumpAndSettle();
-    expect(currentRoute, '/surveys');
-
-    isSessionExpiredController.add(null);
     await tester.pumpAndSettle();
     expect(currentRoute, '/surveys');
   });

@@ -2,29 +2,22 @@ import 'package:faker/faker.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
-import 'package:surveys/data/cache/cache.dart';
 import 'package:surveys/data/http/http.dart';
 
 import 'package:surveys/main/decorators/decorators.dart';
 
-class FetchSecureCacheStorageSpy extends Mock
-    implements FetchSecureCacheStorage {}
-
-class DeleteSecureCacheStorageSpy extends Mock
-    implements DeleteSecureCacheStorage {}
-
-class HttpClientSpy extends Mock implements HttpClient {}
+import '../mocks/mocks.dart';
 
 void main() {
-  AuthorizeHttpClientDecorator sut;
-  FetchSecureCacheStorageSpy fetchSecureCacheStorage;
-  DeleteSecureCacheStorageSpy deleteSecureCacheStorage;
-  HttpClientSpy httpClient;
-  String url;
-  String method;
-  Map body;
-  String token;
-  String httpResponse;
+  late AuthorizeHttpClientDecorator sut;
+  late MockFetchSecureCacheStorage fetchSecureCacheStorage;
+  late MockDeleteSecureCacheStorage deleteSecureCacheStorage;
+  late MockHttpClient httpClient;
+  late String url;
+  late String method;
+  late Map body;
+  late String token;
+  late String httpResponse;
 
   PostExpectation mockTokenCall() => when(fetchSecureCacheStorage.fetch(any));
 
@@ -33,9 +26,7 @@ void main() {
     mockTokenCall().thenAnswer((_) async => token);
   }
 
-  void mockTokenError() {
-    mockTokenCall().thenThrow(Exception());
-  }
+  void mockTokenError() => mockTokenCall().thenThrow(Exception());
 
   PostExpectation mockHttpResponseCall() => when(httpClient.request(
         url: anyNamed('url'),
@@ -49,14 +40,13 @@ void main() {
     mockHttpResponseCall().thenAnswer((_) async => httpResponse);
   }
 
-  void mockHttpResponseError(HttpError error) {
-    mockHttpResponseCall().thenThrow(error);
-  }
+  void mockHttpResponseError(HttpError error) =>
+      mockHttpResponseCall().thenThrow(error);
 
   setUp(() {
-    fetchSecureCacheStorage = FetchSecureCacheStorageSpy();
-    deleteSecureCacheStorage = DeleteSecureCacheStorageSpy();
-    httpClient = HttpClientSpy();
+    fetchSecureCacheStorage = MockFetchSecureCacheStorage();
+    deleteSecureCacheStorage = MockDeleteSecureCacheStorage();
+    httpClient = MockHttpClient();
     sut = AuthorizeHttpClientDecorator(
       fetchSecureCacheStorage: fetchSecureCacheStorage,
       deleteSecureCacheStorage: deleteSecureCacheStorage,
@@ -126,9 +116,9 @@ void main() {
     mockHttpResponseError(HttpError.forbbiden);
 
     final future = sut.request(url: url, method: method, body: body);
-    await untilCalled(deleteSecureCacheStorage.delete('token'));
-
     expect(future, throwsA(HttpError.forbbiden));
+
+    await untilCalled(deleteSecureCacheStorage.delete('token'));
     verify(deleteSecureCacheStorage.delete('token')).called(1);
   });
 }

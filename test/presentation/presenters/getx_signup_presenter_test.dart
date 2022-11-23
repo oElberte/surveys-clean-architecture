@@ -10,31 +10,26 @@ import 'package:surveys/ui/helpers/errors/errors.dart';
 import 'package:surveys/presentation/presenters/presenters.dart';
 import 'package:surveys/presentation/protocols/protocols.dart';
 
-import '../../mocks/mocks.dart';
-
-class ValidationSpy extends Mock implements Validation {}
-
-class CreateAccountSpy extends Mock implements CreateAccount {}
-
-class SaveCurrentAccountSpy extends Mock implements SaveCurrentAccount {}
+import '../../domain/mocks/mocks.dart';
+import '../mocks/mocks.dart';
 
 void main() {
-  GetxSignUpPresenter sut;
-  ValidationSpy validation;
-  CreateAccountSpy createAccount;
-  SaveCurrentAccountSpy saveCurrentAccount;
-  String email;
-  String password;
-  String passwordConfirmation;
-  String name;
-  AccountEntity account;
+  late GetxSignUpPresenter sut;
+  late MockValidation validation;
+  late MockCreateAccount createAccount;
+  late MockSaveCurrentAccount saveCurrentAccount;
+  late String email;
+  late String password;
+  late String passwordConfirmation;
+  late String name;
+  late AccountEntity account;
 
-  PostExpectation mockValidationCall(String field) => when(validation.validate(
+  PostExpectation mockValidationCall(String? field) => when(validation.validate(
         field: field == null ? anyNamed('field') : field,
         input: anyNamed('input'),
       ));
 
-  void mockValidation({String field, ValidationError value}) {
+  void mockValidation({String? field, ValidationError? value}) {
     mockValidationCall(field).thenReturn(value);
   }
 
@@ -57,9 +52,9 @@ void main() {
   }
 
   setUp(() {
-    validation = ValidationSpy();
-    createAccount = CreateAccountSpy();
-    saveCurrentAccount = SaveCurrentAccountSpy();
+    validation = MockValidation();
+    createAccount = MockCreateAccount();
+    saveCurrentAccount = MockSaveCurrentAccount();
     sut = GetxSignUpPresenter(
       validation: validation,
       createAccount: createAccount,
@@ -70,7 +65,7 @@ void main() {
     passwordConfirmation = faker.internet.password();
     name = faker.person.name();
     mockValidation();
-    mockCreateAccount(FakeAccountFactory.makeEntity());
+    mockCreateAccount(EntityFactory.makeAccount());
   });
 
   test('Should call Validation with correct email', () {

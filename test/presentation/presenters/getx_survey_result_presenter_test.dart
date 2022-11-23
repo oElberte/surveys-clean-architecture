@@ -6,27 +6,22 @@ import 'package:test/test.dart';
 import 'package:mockito/mockito.dart';
 
 import 'package:surveys/domain/entities/entities.dart';
-import 'package:surveys/domain/usecases/usecases.dart';
 
 import 'package:surveys/ui/pages/pages.dart';
 
-import '../../mocks/mocks.dart';
-
-class LoadSurveyResultSpy extends Mock implements LoadSurveyResult {}
-
-class SaveSurveyResultSpy extends Mock implements SaveSurveyResult {}
+import '../../domain/mocks/mocks.dart';
+import '../mocks/mocks.dart';
 
 void main() {
-  GetxSurveyResultPresenter sut;
-  LoadSurveyResultSpy loadSurveyResult;
-  SaveSurveyResultSpy saveSurveyResult;
-  SurveyResultEntity loadResult;
-  SurveyResultEntity saveResult;
-  String surveyId;
-  String answer;
+  late GetxSurveyResultPresenter sut;
+  late MockLoadSurveyResult loadSurveyResult;
+  late MockSaveSurveyResult saveSurveyResult;
+  late SurveyResultEntity loadResult;
+  late SurveyResultEntity saveResult;
+  late String surveyId;
+  late String answer;
 
-  PostExpectation mockLoadSurveyResultCall() =>
-      when(loadSurveyResult.loadBySurvey(surveyId: anyNamed('surveyId')));
+  PostExpectation mockLoadSurveyResultCall() => when(loadSurveyResult.loadBySurvey(surveyId: anyNamed('surveyId')));
 
   void mockLoadSurveyResult(SurveyResultEntity data) {
     loadResult = data;
@@ -69,15 +64,15 @@ void main() {
   setUp(() {
     surveyId = faker.guid.guid();
     answer = faker.lorem.sentence();
-    loadSurveyResult = LoadSurveyResultSpy();
-    saveSurveyResult = SaveSurveyResultSpy();
+    loadSurveyResult = MockLoadSurveyResult();
+    saveSurveyResult = MockSaveSurveyResult();
     sut = GetxSurveyResultPresenter(
       loadSurveyResult: loadSurveyResult,
       saveSurveyResult: saveSurveyResult,
       surveyId: surveyId,
     );
-    mockLoadSurveyResult(FakeSurveyResultFactory.makeEntity());
-    mockSaveSurveyResult(FakeSurveyResultFactory.makeEntity());
+    mockLoadSurveyResult(EntityFactory.makeSurveyResult());
+    mockSaveSurveyResult(EntityFactory.makeSurveyResult());
   });
 
   group('loadData', () {

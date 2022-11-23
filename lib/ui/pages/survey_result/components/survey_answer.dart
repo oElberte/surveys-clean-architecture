@@ -33,10 +33,10 @@ class SurveyAnswer extends StatelessWidget {
       ];
 
       if (viewModel.image != null) {
-        children.insert(
-          0,
-          Image.network(viewModel.image, width: 40),
-        );
+        children.insert(0, Image.network(
+          viewModel.image!, 
+          width: 40
+        ));
       }
 
       return children;

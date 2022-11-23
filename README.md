@@ -2,7 +2,7 @@
 Surveys for developers, app for learning and training.
 
 ## Getting started
-The app is made on Flutter version 1.20.4 using FVM for version management, when the app is finished will be updated to the Flutter version with Null Safety.
+The app is using Flutter 2.5.1 with FVM for version management with null safety, the app was made on Flutter version 1.20.4 with FVM for version management.
 
 **This app was made to learn new skills, like**
  - TDD

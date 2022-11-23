@@ -1,16 +1,15 @@
 import 'package:faker/faker.dart';
-import 'package:localstorage/localstorage.dart';
 import 'package:mockito/mockito.dart';
 import 'package:surveys/infra/cache/cache.dart';
 import 'package:test/test.dart';
 
-class LocalStorageSpy extends Mock implements LocalStorage {}
+import '../mocks/mocks.dart';
 
 void main() {
-  LocalStorageAdapter sut;
-  LocalStorageSpy localStorage;
-  String key;
-  dynamic value;
+  late LocalStorageAdapter sut;
+  late MockLocalStorage localStorage;
+  late String key;
+  late dynamic value;
 
   void mockDeleteError() =>
       when(localStorage.deleteItem(any)).thenThrow(Exception());
@@ -21,7 +20,7 @@ void main() {
   setUp(() {
     key = faker.randomGenerator.string(5);
     value = faker.randomGenerator.string(50);
-    localStorage = LocalStorageSpy();
+    localStorage = MockLocalStorage();
     sut = LocalStorageAdapter(localStorage: localStorage);
   });
 
@@ -67,7 +66,7 @@ void main() {
   });
 
   group('fetch', () {
-    String result;
+    late String result;
 
     PostExpectation mockFetchCall() => when(localStorage.getItem(any));
 

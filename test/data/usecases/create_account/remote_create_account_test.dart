@@ -6,16 +6,17 @@ import 'package:surveys/domain/helpers/helpers.dart';
 import 'package:surveys/domain/usecases/usecases.dart';
 import 'package:surveys/data/http/http.dart';
 import 'package:surveys/data/usecases/usecases.dart';
-import '../../../mocks/mocks.dart';
 
-class HttpClientSpy extends Mock implements HttpClient {}
+import '../../../domain/mocks/mocks.dart';
+import '../../../infra/mocks/mocks.dart';
+import '../../../main/mocks/mocks.dart';
 
 void main() {
-  RemoteCreateAccount sut;
-  HttpClientSpy httpClient;
-  String url;
-  CreateAccountParams params;
-  Map apiResult;
+  late RemoteCreateAccount sut;
+  late MockHttpClient httpClient;
+  late String url;
+  late CreateAccountParams params;
+  late Map apiResult;
 
   PostExpectation mockRequest() {
     return when(
@@ -37,14 +38,14 @@ void main() {
   }
 
   setUp(() {
-    httpClient = HttpClientSpy();
+    httpClient = MockHttpClient();
     url = faker.internet.httpUrl();
     sut = RemoteCreateAccount(
       httpClient: httpClient,
       url: url,
     );
-    params = FakeParamsFactory.makeCreateAccount();
-    mockHttpData(FakeAccountFactory.makeApiJson());
+    params = ParamsFactory.makeCreateAccount();
+    mockHttpData(ApiFactory.makeAccountJson());
   });
 
   test('Should call HttpClient with correct values', () async {

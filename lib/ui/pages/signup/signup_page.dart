@@ -7,7 +7,8 @@ import '../../mixins/mixins.dart';
 import 'components/components.dart';
 import 'signup_presenter.dart';
 
-class SignUpPage extends StatelessWidget with KeyboardManager, LoadingManager, UIErrorManager, NavigationManager {
+class SignUpPage extends StatelessWidget
+    with KeyboardManager, LoadingManager, UIErrorManager, NavigationManager {
   final SignUpPresenter presenter;
 
   SignUpPage(this.presenter);
@@ -31,7 +32,7 @@ class SignUpPage extends StatelessWidget with KeyboardManager, LoadingManager, U
                   Headline1(text: R.string.createAccount),
                   Padding(
                     padding: EdgeInsets.all(32),
-                    child: Provider(
+                    child: ListenableProvider(
                       create: (_) => presenter,
                       child: Form(
                         child: Column(
@@ -47,7 +48,7 @@ class SignUpPage extends StatelessWidget with KeyboardManager, LoadingManager, U
                               child: PasswordConfirmationInput(),
                             ),
                             SignUpButton(),
-                            FlatButton.icon(
+                            TextButton.icon(
                               onPressed: presenter.goToLogin,
                               icon: Icon(Icons.exit_to_app),
                               label: Text(R.string.login),

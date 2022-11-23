@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:meta/meta.dart';
 
 import '../../domain/helpers/helpers.dart';
 import '../../domain/usecases/usecases.dart';
@@ -13,16 +12,16 @@ class GetxSurveysPresenter extends GetxController
     implements SurveysPresenter {
   final LoadSurveys loadSurveys;
 
-  final _surveys = Rx<List<SurveyViewModel>>();
+  final _surveys = Rx<List<SurveyViewModel>>([]);
 
   Stream<List<SurveyViewModel>> get surveysStream => _surveys.stream;
 
-  GetxSurveysPresenter({@required this.loadSurveys});
+  GetxSurveysPresenter({required this.loadSurveys});
 
   Future<void> loadData() async {
     try {
       isLoading = true;
-      final surveys = await loadSurveys.loadBySurvey();
+      final surveys = await loadSurveys.load();
       _surveys.value = surveys
           .map((survey) => SurveyViewModel(
                 id: survey.id,

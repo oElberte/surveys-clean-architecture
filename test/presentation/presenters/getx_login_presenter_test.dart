@@ -11,29 +11,24 @@ import 'package:surveys/domain/usecases/usecases.dart';
 import 'package:surveys/presentation/presenters/presenters.dart';
 import 'package:surveys/presentation/protocols/protocols.dart';
 
-import '../../mocks/mocks.dart';
-
-class ValidationSpy extends Mock implements Validation {}
-
-class AuthenticationSpy extends Mock implements Authentication {}
-
-class SaveCurrentAccountSpy extends Mock implements SaveCurrentAccount {}
+import '../../domain/mocks/mocks.dart';
+import '../mocks/mocks.dart';
 
 void main() {
-  GetxLoginPresenter sut;
-  ValidationSpy validation;
-  AuthenticationSpy authentication;
-  SaveCurrentAccountSpy saveCurrentAccount;
-  String email;
-  String password;
-  AccountEntity account;
+  late GetxLoginPresenter sut;
+  late MockValidation validation;
+  late MockAuthentication authentication;
+  late MockSaveCurrentAccount saveCurrentAccount;
+  late String email;
+  late String password;
+  late AccountEntity account;
 
-  PostExpectation mockValidationCall(String field) => when(validation.validate(
+  PostExpectation mockValidationCall(String? field) => when(validation.validate(
         field: field == null ? anyNamed('field') : field,
         input: anyNamed('input'),
       ));
 
-  void mockValidation({String field, ValidationError value}) {
+  void mockValidation({String? field, ValidationError? value}) {
     mockValidationCall(field).thenReturn(value);
   }
 
@@ -56,9 +51,9 @@ void main() {
   }
 
   setUp(() {
-    validation = ValidationSpy();
-    authentication = AuthenticationSpy();
-    saveCurrentAccount = SaveCurrentAccountSpy();
+    validation = MockValidation();
+    authentication = MockAuthentication();
+    saveCurrentAccount = MockSaveCurrentAccount();
     sut = GetxLoginPresenter(
       validation: validation,
       authentication: authentication,
@@ -67,7 +62,7 @@ void main() {
     email = faker.internet.email();
     password = faker.internet.password();
     mockValidation();
-    mockAuthentication(FakeAccountFactory.makeEntity());
+    mockAuthentication(EntityFactory.makeAccount());
   });
 
   test('Should call Validation with correct email', () {
@@ -75,7 +70,8 @@ void main() {
 
     sut.validateEmail(email);
 
-    verify(validation.validate(field: 'email', input: formData)).called(1);
+    verify(validation.validate(field: 'email', input: formData))
+        .called(1);
   });
 
   test('Should emit invalid field error if email is invalid', () {
@@ -118,7 +114,8 @@ void main() {
 
     sut.validatePassword(password);
 
-    verify(validation.validate(field: 'password', input: formData)).called(1);
+    verify(validation.validate(field: 'password', input: formData))
+        .called(1);
   });
 
   test('Should emit required field error if password is empty', () {
@@ -173,9 +170,8 @@ void main() {
 
     await sut.auth();
 
-    verify(authentication
-            .auth(AuthenticationParams(email: email, password: password)))
-        .called(1);
+    verify(authentication.auth(
+        AuthenticationParams(email: email, password: password))).called(1);
   });
 
   test('Should call SaveCurrentAccount with correct value', () async {

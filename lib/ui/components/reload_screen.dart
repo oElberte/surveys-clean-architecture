@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 import '../helpers/helpers.dart';
 
@@ -7,7 +6,7 @@ class ReloadScreen extends StatelessWidget {
   final String error;
   final Future<void> Function() reload;
 
-  const ReloadScreen({@required this.error, @required this.reload});
+  const ReloadScreen({required this.error, required this.reload});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +23,7 @@ class ReloadScreen extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 10),
-          RaisedButton(
+          ElevatedButton(
             onPressed: reload,
             child: Text(R.string.refresh),
           ),

@@ -1,5 +1,3 @@
-import 'package:meta/meta.dart';
-
 import '../../data/usecases/usecases.dart';
 import '../../domain/entities/entities.dart';
 import '../../domain/helpers/helpers.dart';
@@ -10,13 +8,13 @@ class RemoteLoadSurveysWithLocalFallback implements LoadSurveys {
   final LocalLoadSurveys local;
 
   RemoteLoadSurveysWithLocalFallback({
-    @required this.remote,
-    @required this.local,
+    required this.remote,
+    required this.local,
   });
 
-  Future<List<SurveyEntity>> loadBySurvey() async {
+  Future<List<SurveyEntity>> load() async {
     try {
-      final surveys = await remote.loadBySurvey();
+      final surveys = await remote.load();
       await local.save(surveys);
       return surveys;
     } catch (error) {
@@ -24,7 +22,7 @@ class RemoteLoadSurveysWithLocalFallback implements LoadSurveys {
         rethrow;
       }
       await local.validate();
-      return await local.loadBySurvey();
+      return await local.load();
     }
   }
 }

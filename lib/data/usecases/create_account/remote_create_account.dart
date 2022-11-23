@@ -1,5 +1,3 @@
-import 'package:meta/meta.dart';
-
 import '../../../domain/entities/entities.dart';
 import '../../../domain/helpers/helpers.dart';
 import '../../../domain/usecases/usecases.dart';
@@ -11,8 +9,8 @@ class RemoteCreateAccount implements CreateAccount {
   final String url;
 
   RemoteCreateAccount({
-    @required this.httpClient,
-    @required this.url,
+    required this.httpClient,
+    required this.url,
   });
 
   Future<AccountEntity> create(CreateAccountParams params) async {
@@ -39,10 +37,10 @@ class RemoteCreateAccountParams {
   final String passwordConfirmation;
 
   RemoteCreateAccountParams({
-    @required this.name,
-    @required this.email,
-    @required this.password,
-    @required this.passwordConfirmation,
+    required this.name,
+    required this.email,
+    required this.password,
+    required this.passwordConfirmation,
   });
 
   factory RemoteCreateAccountParams.fromDomain(CreateAccountParams params) =>

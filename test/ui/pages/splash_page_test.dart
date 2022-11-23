@@ -7,16 +7,15 @@ import 'package:mockito/mockito.dart';
 import 'package:surveys/ui/pages/pages.dart';
 
 import '../helpers/helpers.dart';
-
-class SplashPresenterSpy extends Mock implements SplashPresenter {}
+import '../mocks/mocks.dart';
 
 void main() {
-  SplashPresenterSpy presenter;
-  StreamController<String> navigateToController;
+  late SplashPresenter presenter;
+  late StreamController<String?> navigateToController;
 
   Future<void> loadPage(WidgetTester tester) async {
-    presenter = SplashPresenterSpy();
-    navigateToController = StreamController<String>();
+    presenter = MockSplashPresenter();
+    navigateToController = StreamController<String?>();
 
     when(presenter.navigateToStream)
         .thenAnswer((_) => navigateToController.stream);

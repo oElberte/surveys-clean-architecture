@@ -3,7 +3,7 @@ import 'package:surveys/validation/validators/validators.dart';
 import 'package:test/test.dart';
 
 void main() {
-  CompareFieldsValidation sut;
+  late CompareFieldsValidation sut;
 
   setUp(() {
     sut = CompareFieldsValidation(

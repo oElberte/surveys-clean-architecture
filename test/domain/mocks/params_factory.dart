@@ -2,7 +2,7 @@ import 'package:faker/faker.dart';
 
 import 'package:surveys/domain/usecases/usecases.dart';
 
-class FakeParamsFactory {
+class ParamsFactory {
   static CreateAccountParams makeCreateAccount() => CreateAccountParams(
         name: faker.person.name(),
         email: faker.internet.email(),

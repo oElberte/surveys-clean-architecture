@@ -21,7 +21,8 @@ class _SurveysPageState extends State<SurveysPage>
     with LoadingManager, NavigationManager, SessionManager, RouteAware {
   @override
   Widget build(BuildContext context) {
-    Get.find<RouteObserver>().subscribe(this, ModalRoute.of(context));
+    Get.find<RouteObserver>()
+        .subscribe(this, ModalRoute.of(context) as PageRoute);
 
     return Scaffold(
       appBar: AppBar(
@@ -39,17 +40,15 @@ class _SurveysPageState extends State<SurveysPage>
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return ReloadScreen(
-                  error: snapshot.error,
+                  error: '${snapshot.error}',
                   reload: widget.presenter.loadData,
                 );
               }
 
               if (snapshot.hasData) {
-                return Provider(
+                return ListenableProvider(
                   create: (_) => widget.presenter,
-                  child: SurveyItems(
-                    snapshot.data,
-                  ),
+                  child: SurveyItems(snapshot.data!),
                 );
               }
 

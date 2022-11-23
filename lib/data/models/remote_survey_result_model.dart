@@ -1,5 +1,3 @@
-import 'package:meta/meta.dart';
-
 import '../../domain/entities/entities.dart';
 import '../http/http.dart';
 import 'models.dart';
@@ -10,9 +8,9 @@ class RemoteSurveyResultModel {
   final List<RemoteSurveyAnswerModel> answers;
 
   RemoteSurveyResultModel({
-    @required this.surveyId,
-    @required this.question,
-    @required this.answers,
+    required this.surveyId,
+    required this.question,
+    required this.answers,
   });
 
   factory RemoteSurveyResultModel.fromJson(Map json) {
@@ -25,7 +23,8 @@ class RemoteSurveyResultModel {
       surveyId: json['surveyId'],
       question: json['question'],
       answers: json['answers']
-          .map<RemoteSurveyAnswerModel>((answerJson) => RemoteSurveyAnswerModel.fromJson(answerJson))
+          .map<RemoteSurveyAnswerModel>(
+              (answerJson) => RemoteSurveyAnswerModel.fromJson(answerJson))
           .toList(),
     );
   }
@@ -34,7 +33,9 @@ class RemoteSurveyResultModel {
     return SurveyResultEntity(
       surveyId: surveyId,
       question: question,
-      answers: answers.map<SurveyAnswerEntity>((answer) => answer.toEntity()).toList(),
+      answers: answers
+          .map<SurveyAnswerEntity>((answer) => answer.toEntity())
+          .toList(),
     );
   }
 }

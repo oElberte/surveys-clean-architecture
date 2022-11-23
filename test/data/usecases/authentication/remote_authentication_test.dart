@@ -7,26 +7,25 @@ import 'package:surveys/domain/usecases/usecases.dart';
 
 import 'package:surveys/data/http/http.dart';
 import 'package:surveys/data/usecases/usecases.dart';
-import '../../../mocks/mocks.dart';
 
-class HttpClientSpy extends Mock implements HttpClient {}
+import '../../../domain/mocks/mocks.dart';
+import '../../../infra/mocks/mocks.dart';
+import '../../../main/mocks/mocks.dart';
 
 void main() {
-  RemoteAuthentication sut;
-  HttpClientSpy httpClient;
-  String url;
-  AuthenticationParams params;
-  Map apiResult;
+  late RemoteAuthentication sut;
+  late MockHttpClient httpClient;
+  late String url;
+  late AuthenticationParams params;
+  late Map apiResult;
 
-  PostExpectation mockRequest() {
-    return when(
-      httpClient.request(
-        url: anyNamed('url'),
-        method: anyNamed('method'),
-        body: anyNamed('body'),
-      ),
-    );
-  }
+  PostExpectation mockRequest() => when(
+        httpClient.request(
+          url: anyNamed('url'),
+          method: anyNamed('method'),
+          body: anyNamed('body'),
+        ),
+      );
 
   void mockHttpData(Map data) {
     apiResult = data;
@@ -38,13 +37,13 @@ void main() {
   }
 
   setUp(() {
-    httpClient = HttpClientSpy();
+    httpClient = MockHttpClient();
     url = faker.internet.httpUrl();
     //SUT = System under test
     sut = RemoteAuthentication(httpClient: httpClient, url: url);
-    params = FakeParamsFactory.makeAuthentication();
+    params = ParamsFactory.makeAuthentication();
     //Every test that does nothing as default, will return a success case
-    mockHttpData(FakeAccountFactory.makeApiJson());
+    mockHttpData(ApiFactory.makeAccountJson());
   });
 
   test('Should call HttpClient with correct values', () async {

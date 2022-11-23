@@ -9,29 +9,28 @@ import 'package:surveys/ui/helpers/errors/errors.dart';
 import 'package:surveys/ui/pages/pages.dart';
 
 import '../helpers/helpers.dart';
-
-class SignUpPresenterSpy extends Mock implements SignUpPresenter {}
+import '../mocks/mocks.dart';
 
 void main() {
-  SignUpPresenter presenter;
-  StreamController<UIError> nameErrorController;
-  StreamController<UIError> emailErrorController;
-  StreamController<UIError> passwordErrorController;
-  StreamController<UIError> passwordConfirmationErrorController;
-  StreamController<UIError> mainErrorController;
-  StreamController<bool> isFormValidController;
-  StreamController<bool> isLoadingController;
-  StreamController<String> navigateToController;
+  late SignUpPresenter presenter;
+  late StreamController<UIError?> nameErrorController;
+  late StreamController<UIError?> emailErrorController;
+  late StreamController<UIError?> passwordErrorController;
+  late StreamController<UIError?> passwordConfirmationErrorController;
+  late StreamController<UIError?> mainErrorController;
+  late StreamController<String?> navigateToController;
+  late StreamController<bool> isFormValidController;
+  late StreamController<bool> isLoadingController;
 
   void initStreams() {
-    nameErrorController = StreamController<UIError>();
-    emailErrorController = StreamController<UIError>();
-    passwordErrorController = StreamController<UIError>();
-    passwordConfirmationErrorController = StreamController<UIError>();
-    mainErrorController = StreamController<UIError>();
+    nameErrorController = StreamController<UIError?>();
+    emailErrorController = StreamController<UIError?>();
+    passwordErrorController = StreamController<UIError?>();
+    passwordConfirmationErrorController = StreamController<UIError?>();
+    mainErrorController = StreamController<UIError?>();
+    navigateToController = StreamController<String?>();
     isFormValidController = StreamController<bool>();
     isLoadingController = StreamController<bool>();
-    navigateToController = StreamController<String>();
   }
 
   void mockStreams() {
@@ -65,7 +64,7 @@ void main() {
   }
 
   Future<void> loadPage(WidgetTester tester) async {
-    presenter = SignUpPresenterSpy();
+    presenter = MockSignUpPresenter();
     initStreams();
     mockStreams();
     await tester.pumpWidget(makePage(
@@ -187,7 +186,7 @@ void main() {
     isFormValidController.add(true);
     await tester.pump();
 
-    final button = tester.widget<RaisedButton>(find.byType(RaisedButton));
+    final button = tester.widget<ElevatedButton>(find.byType(ElevatedButton));
     expect(button.onPressed, isNotNull);
   });
 
@@ -198,7 +197,7 @@ void main() {
     isFormValidController.add(false);
     await tester.pump();
 
-    final button = tester.widget<RaisedButton>(find.byType(RaisedButton));
+    final button = tester.widget<ElevatedButton>(find.byType(ElevatedButton));
     expect(button.onPressed, null);
   });
 
@@ -207,7 +206,7 @@ void main() {
 
     isFormValidController.add(true);
     await tester.pump();
-    final button = find.byType(RaisedButton);
+    final button = find.byType(ElevatedButton);
     await tester.ensureVisible(button);
     await tester.tap(button);
     await tester.pump();
@@ -229,10 +228,6 @@ void main() {
     isLoadingController.add(true);
     await tester.pump();
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
-
-    isLoadingController.add(null);
-    await tester.pump();
-    expect(find.byType(CircularProgressIndicator), findsNothing);
   });
 
   testWidgets('Should present error message if signUp fails',

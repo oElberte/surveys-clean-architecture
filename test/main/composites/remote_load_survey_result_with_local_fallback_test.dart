@@ -2,31 +2,26 @@ import 'package:faker/faker.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
-import 'package:surveys/data/usecases/usecases.dart';
 import 'package:surveys/domain/entities/entities.dart';
 import 'package:surveys/domain/helpers/helpers.dart';
 import 'package:surveys/main/composites/composites.dart';
 
-import '../../mocks/mocks.dart';
-
-class RemoteLoadSurveyResultSpy extends Mock implements RemoteLoadSurveyResult {
-}
-
-class LocalLoadSurveyResultSpy extends Mock implements LocalLoadSurveyResult {}
+import '../../domain/mocks/mocks.dart';
+import '../mocks/mocks.dart';
 
 void main() {
-  RemoteLoadSurveyResultWithLocalFallback sut;
-  RemoteLoadSurveyResultSpy remote;
-  LocalLoadSurveyResultSpy local;
-  String surveyId;
-  SurveyResultEntity remoteResult;
-  SurveyResultEntity localResult;
+  late RemoteLoadSurveyResultWithLocalFallback sut;
+  late MockRemoteLoadSurveyResult remote;
+  late MockLocalLoadSurveyResult local;
+  late String surveyId;
+  late SurveyResultEntity remoteResult;
+  late SurveyResultEntity localResult;
 
   PostExpectation mockRemoteLoadCall() =>
       when(remote.loadBySurvey(surveyId: anyNamed('surveyId')));
 
   void mockRemoteLoad() {
-    remoteResult = FakeSurveyResultFactory.makeEntity();
+    remoteResult = EntityFactory.makeSurveyResult();
     when(mockRemoteLoadCall().thenAnswer((_) async => remoteResult));
   }
 
@@ -37,7 +32,7 @@ void main() {
       when(local.loadBySurvey(surveyId: anyNamed('surveyId')));
 
   void mockLocalLoad() {
-    localResult = FakeSurveyResultFactory.makeEntity();
+    localResult = EntityFactory.makeSurveyResult();
     when(mockLocalLoadCall().thenAnswer((_) async => localResult));
   }
 
@@ -46,8 +41,8 @@ void main() {
 
   setUp(() {
     surveyId = faker.guid.guid();
-    remote = RemoteLoadSurveyResultSpy();
-    local = LocalLoadSurveyResultSpy();
+    remote = MockRemoteLoadSurveyResult();
+    local = MockLocalLoadSurveyResult();
     sut = RemoteLoadSurveyResultWithLocalFallback(
       remote: remote,
       local: local,
